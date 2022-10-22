@@ -32,3 +32,7 @@
     </tbody>
   </table>
   @endsection
+  {{-- @if(session()->has('message'))
+   <h1 class="alert alert-danger">{{session()->get('message')}}
+</h1>
+@endif --}}
