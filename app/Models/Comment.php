@@ -13,7 +13,6 @@ class Comment extends Model
     protected $fillable = [
         'body',
         'post_id',
-        'post_creator'
     ];
 
     public function post(){
