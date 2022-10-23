@@ -25,19 +25,17 @@ class PostController extends Controller
 
     public function show($postId)
     {
-        $allPosts = [
-            ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Ahmed', 'creation_date' => '2022-10-22'],
-            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Mohamed', 'creation_date' => '2022-10-15'],
-            ['id' => 3 , 'title' => 'PHP deeps dives', 'posted_by' => 'Mohamedss', 'creation_date' => '2022-01-25'],
+        $arr = [
+            ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Ahmed', 'creation_date' => '2022-10-22','email'=>'ahmed@gmail.com'],
+            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Mohamed', 'creation_date' => '2022-10-15','email'=>'mohammed@gmail.com'],
         ];
-        if($postId){
-            $allPosts =array_filter($allPosts,function($postId){
-                return $postId['id']== request()->segment(count(request()->segments()));
-            });
-        }
+        // dd($arr);
 
-        return view('posts.show',compact('allPosts'));
+        return  view('posts.show',[
+            'post' => $arr[$postId-1]
+        ]);
     }
+
 
     public function store()
     {
