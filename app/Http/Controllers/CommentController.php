@@ -22,4 +22,6 @@ class CommentController extends Controller
         return redirect()->route('posts.show',$postId);
     }
 
+    //?
 }
+

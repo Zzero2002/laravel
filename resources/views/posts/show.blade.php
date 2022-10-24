@@ -3,6 +3,7 @@
 @section('title') Show @endsection
 
 @section('content')
+
 <style>
    .comments li{
     border:5px solid wheat;
@@ -11,6 +12,7 @@
    }
 
 </style>
+<div class="container">
 <div class="card mt-5">
   <h5 class="card-header">Post Info</h5>
   <div class="card-body">
@@ -72,4 +74,5 @@
         <button type="submit" class="btn btn-success">Add comment</button>
     </div>
 </form>
+</div>
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\comment;
+use App\Http\Requests\StorePostRequest;
+
 
 class PostController extends Controller
 {
@@ -40,9 +42,9 @@ class PostController extends Controller
     }
 
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
-        $data = request()->all();
+        $data = $request->validated();
         Post::create([
             'title' => request()->title,
             'description' => $data['description'],
@@ -63,15 +65,21 @@ class PostController extends Controller
 
     }
 
-    public function update(Request $request,$id){
-
+    public function update(Request $request,$id ){
         $data = $request->all();
+        //  dd($data);
+        $request->validate([
+            'title' => ['required', 'min:3','unique:posts,title,'.$id],
+            'description' => ['required', 'min:10'],
+        ]);
         // dd($data);
         $postId = Post::find($id);
         $postId->update($data);
         return to_route('posts.index');
 
     }
+
+
     public function destroy($postId){
         Post::destroy($postId);
         return to_route('posts.index');

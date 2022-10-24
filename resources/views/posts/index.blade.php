@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title') Index @endsection
 @section('content')
+<div class="container">
 <div class="text-center">
     <a href="{{route('posts.create')}}" class="mt-4 btn btn-success">Create Post</a>
   </div>
@@ -54,7 +55,7 @@
   @endsection
 
 
-
+</div>
   {{-- @if(session()->has('message'))
    <h1 class="alert alert-danger">{{session()->get('message')}}
 </h1>
