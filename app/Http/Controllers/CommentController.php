@@ -11,11 +11,15 @@ use App\Models\User;
 class CommentController extends Controller
 {
 
-    public function store(Post $post){
-        Comment::create([
-            'body'=>request('body'),
-            'post_id'=> $post->id,
-        ]);
+   public function store($postId)
+    {
+        $post = Post::find($postId);
+        $data = request()->all();
+            $comment = $post->comments()->create([
+                'body' => $data["comment"]
+            ]);
+        // dd()
+        return redirect()->route('posts.show',$postId);
     }
 
 }

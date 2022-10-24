@@ -61,12 +61,12 @@
 </div>
 <br><br>
 
-<form method="POST" action="/posts/{{$post->id}}">
+<form action="{{route('comments.store',$post->id)}}" method="POST">
 
     @csrf
     <div class="form-group">
     <label for="body">Comment</label>
-    <textarea name="body" id="body" class="form-control"></textarea>
+    <textarea name="comment" id="body" class="form-control"></textarea>
 </div>
     <div class="form-group add-comment">
         <button type="submit" class="btn btn-success">Add comment</button>
