@@ -86,17 +86,20 @@ class PostController extends Controller
             ]);
 
         $postId = Post::find($id);
-
-        $data = $request->all();
             $destination= 'images/'.$postId->image;
             if(File::exists($destination)){
                 File::delete($destination);
             }
 
-        $postId->update($data);
+        $postId->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->post_creator,
+            'image' => $img_name,
+        ]);
         $request->image->move(public_path('images'),$img_name);
 
-        dd($data);
+       /// dd($data);
         return to_route('posts.index');
 
     }
