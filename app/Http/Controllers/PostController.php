@@ -12,7 +12,7 @@ use App\Http\Requests\StorePostRequest;
 class PostController extends Controller
 {
     public function index(){
-        $allPosts =Post::paginate(3);
+        $allPosts =Post::paginate(10);
         // Carbon::resetToStringFormat();
 
         return view('posts.index',[
