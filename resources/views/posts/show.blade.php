@@ -16,12 +16,17 @@
 <div class="card mt-5">
   <h5 class="card-header">Post Info</h5>
   <div class="card-body">
+    @if ($post->image)
+
+        <img class="w-25 img-fluid img-thumbnail" src="{{ URL::to('/') }}/images/{{ $post->image }}" alt="">
+        @endif
+
     <h5 class="card-title">Title: {{$post['title']}}</h5>
     <p class="card-text">Description :</p>
     <p class="card-text">{{$post['description']}}</p>
     </div>
 </div>
-<div class="card">
+<div class="card mt-2">
   <h5 class="card-header">Post Creator Info</h5>
   <div class="card-body">
     <h5 class="card-title"></h5>

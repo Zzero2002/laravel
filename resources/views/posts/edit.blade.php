@@ -13,7 +13,7 @@
         </ul>
     </div>
 @endif
-        <form method="POST" action="{{route('posts.update', $post['id'])}}">
+        <form enctype="multipart/form-data" method="POST" action="{{route('posts.update', $post['id'])}}">
           @csrf
           @method('PUT')
             <div class="mb-3">
@@ -24,6 +24,11 @@
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Description</label>
                 <input name="description" value="{{$post->description}}" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Image</label>
+                <input name="image" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <img src="{{asset('images/'.$post->image)}}" class="w-25" alt="">
               </div>
 
               <div class="mb-3">

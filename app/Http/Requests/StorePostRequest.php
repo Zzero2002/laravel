@@ -26,14 +26,22 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'min:3','unique:posts'],
             'description' => ['required', 'min:10'],
-            'post_creator' =>['required']
+            'post_creator' =>['required'],
+            'image'=>['image','mimes:png,jpg','max:2048']
         ];
     }
 
-    /**
+   /**
  * Get the error messages for the defined validation rules.
  *
- * @return array
- */
+  * @return array
+  */
+// public function messages()
+// {
+//     return [
+//            'title.required' => 'my custom validation error message',
+//             'title.min' => 'we have made override for min'
+//     ];
+// }
 
 }
