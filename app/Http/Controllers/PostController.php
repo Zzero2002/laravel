@@ -8,14 +8,14 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\comment;
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\PruneOldPostsJob;
 
 
 class PostController extends Controller
 {
     public function index(){
+        PruneOldPostsJob::dispatch();
         $allPosts =Post::orderBy('created_at', 'desc')->paginate(7);
-        // Carbon::resetToStringFormat();
-
         return view('posts.index',[
             'posts' => $allPosts,
         ]);
@@ -33,7 +33,7 @@ class PostController extends Controller
 
     public function show($postId)
     {
-        $allPost = Post::where('id', $postId)->first();
+        $allPost = Post::where('slug', $postId)->first();
         // $allUser = User::Where('id',$userId)->first();
         // dd($allPost);
         return  view('posts.show',[
@@ -77,7 +77,7 @@ class PostController extends Controller
     }
 
     public function update(Request $request,$id ){
-        $img_name=time() . '.'. $request->image->getClientOriginalExtension();
+
         //  dd($data);
             $request->validate([
                 'title' => ['required', 'min:3','unique:posts,title,'.$id],
@@ -85,20 +85,23 @@ class PostController extends Controller
                 // 'image'=>['image','mimes:png,jpg','max:2048']
             ]);
 
-        $postId = Post::find($id);
-            $destination= 'images/'.$postId->image;
-            if(File::exists($destination)){
-                File::delete($destination);
-            }
+            $postId = Post::find($id);
 
-        $postId->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $request->post_creator,
-            'image' => $img_name,
-        ]);
-        $request->image->move(public_path('images'),$img_name);
+if ($request->hasFile('image')) {
+    $destination= 'images/'.$postId->image;
+    if (File::exists($destination)) {
+        File::delete($destination);
+    }
+    $img_name=time() . '.'. $request->image->getClientOriginalExtension();
+    $request->image->move(public_path('images'),$img_name);
 
+}
+            $postId->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'user_id' => $request->post_creator,
+                'image' => $img_name,
+            ]);
        /// dd($data);
         return to_route('posts.index');
 

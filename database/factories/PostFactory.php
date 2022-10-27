@@ -24,6 +24,8 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->title,
             'description' => $this->faker->text,
+            'years' => $this->faker->randomElement([0,1,2]),
         ];
     }
 }
+?>

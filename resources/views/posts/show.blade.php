@@ -50,17 +50,15 @@
 </div>
 <br><br>
 
-<div class="comments">
+<div class="comments container">
     <h1>Comments: </h1>
     <ol class="list-unstyled">
     @foreach ($post->comments as $comment )
      <li>
         <div class="row toto">
-            <div class="col-9">
+            <div class="col-12">
                 <h3 style="color:red;">  {{$comment->body}} </h3>
             </div>
-            <div class="col-3">
-                <button type="submit" class="btn btn-danger">Delete</button></div>
         </div>
      </li>
     @endforeach
