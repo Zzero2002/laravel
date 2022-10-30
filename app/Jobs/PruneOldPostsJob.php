@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Post;
+use Illuminate\Support\Carbon;
 
 class PruneOldPostsJob implements ShouldQueue
 {
@@ -33,7 +34,7 @@ class PruneOldPostsJob implements ShouldQueue
         $allPosts =Post::orderBy('created_at', 'desc')->paginate(7);
         // Carbon::resetToStringFormat();
         foreach($allPosts as $post){
-            Post::where('created_at' ,'<' , '2022-10-26 23:06:06')->delete();
+            Post::where('created_at', '<=', Carbon::now()->subYears(2)->toDateTimeString())->delete();
             // Post::where('years','2')->delete();
 
         }
