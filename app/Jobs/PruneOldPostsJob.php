@@ -33,7 +33,9 @@ class PruneOldPostsJob implements ShouldQueue
         $allPosts =Post::orderBy('created_at', 'desc')->paginate(7);
         // Carbon::resetToStringFormat();
         foreach($allPosts as $post){
-            Post::where('years','2')->delete();
+            Post::where('created_at' ,'<' , '2022-10-26 23:06:06')->delete();
+            // Post::where('years','2')->delete();
+
         }
         return view('posts.index',[
             'posts' => $allPosts,

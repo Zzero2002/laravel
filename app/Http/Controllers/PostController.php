@@ -15,7 +15,7 @@ class PostController extends Controller
 {
     public function index(){
         PruneOldPostsJob::dispatch();
-        $allPosts =Post::orderBy('created_at', 'desc')->paginate(7);
+        $allPosts =Post::with('user')->orderBy('created_at', 'desc')->paginate(7);
         return view('posts.index',[
             'posts' => $allPosts,
         ]);
@@ -33,7 +33,7 @@ class PostController extends Controller
 
     public function show($postId)
     {
-        $allPost = Post::where('slug', $postId)->first();
+        $allPost = Post::with('user')->where('slug', $postId)->first();
         // $allUser = User::Where('id',$userId)->first();
         // dd($allPost);
         return  view('posts.show',[

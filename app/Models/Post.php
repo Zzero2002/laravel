@@ -35,4 +35,8 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }
